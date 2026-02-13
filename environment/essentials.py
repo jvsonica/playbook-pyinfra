@@ -1,0 +1,31 @@
+from pyinfra.operations import apt
+
+apt.packages(
+    packages=[
+        "build-essential",
+        "i3",
+        "i3lock-color",
+        "imagemagick",
+        "feh",
+        "dunst",
+        "curl",
+        "git",
+        "fontconfig",
+        "unzip",
+        "htop",
+        "python3-apt",
+        "python3-pip",
+        "python3-virtualenv",
+        "zsh",
+        "tmux",
+        "ripgrep",
+        "fzf",
+        "dmenu",
+        "stow",
+        "jq",
+        "sshfs",
+    ],
+    present=True,
+    update=True,
+    cache_time=3600,
+)
