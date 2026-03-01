@@ -1,6 +1,3 @@
-import applications.dbeaver
-import applications.firefox
-import applications.obsidian
-import applications.spotify
-import applications.vscode
-import applications.wezterm
+from autoimport import auto_import
+
+auto_import("applications")

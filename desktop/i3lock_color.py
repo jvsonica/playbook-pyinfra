@@ -1,5 +1,4 @@
 from pyinfra import host
-from pyinfra.facts.files import File
 from pyinfra.facts.server import Which
 from pyinfra.operations import apt, files, server
 

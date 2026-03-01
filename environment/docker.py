@@ -1,7 +1,7 @@
 from pathlib import Path
 
 from pyinfra import host
-from pyinfra.facts.server import Which, Users
+from pyinfra.facts.server import Users, Which
 from pyinfra.operations import apt, server
 
 user = Path.home().name
@@ -41,6 +41,5 @@ if not host.get_fact(Which, command="docker"):
 users = host.get_fact(Users)
 if users and user in users:
     user_groups = users[user].get("groups", [])
-    print(user_groups)
     if "docker" not in user_groups:
         server.shell(commands=[f"usermod -aG docker {user}"], _sudo=True)

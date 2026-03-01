@@ -5,7 +5,7 @@ Pyinfra playbooks for workstation setup.
 ## Prerequisites
 
 - Python 3.11+
-- `uv` installed (`pipx install uv` or see https://docs.astral.sh/uv/)
+- `uv`
 
 ## Setup
 
