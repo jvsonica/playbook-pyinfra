@@ -8,13 +8,11 @@ if not host.get_fact(File, path="/usr/local/bin/betterlockscreen"):
         dest="/tmp/betterlockscreen.zip",
     )
 
-    server.shell("unzip -o /tmp/betterlockscreen.zip -d /tmp")
+    server.shell(commands="unzip -o /tmp/betterlockscreen.zip -d /tmp")
 
-    server.shell("chmod +x /tmp/betterlockscreen-main/betterlockscreen")
+    server.shell(commands="chmod +x /tmp/betterlockscreen-main/betterlockscreen")
 
-    server.shell(
-        "mv /tmp/betterlockscreen-main/betterlockscreen /usr/local/bin/betterlockscreen"
-    )
+    server.shell(commands="mv /tmp/betterlockscreen-main/betterlockscreen /usr/local/bin/betterlockscreen")
 
     files.file(
         path="/tmp/betterlockscreen.zip",
