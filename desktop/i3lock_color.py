@@ -1,8 +1,9 @@
 from pyinfra import host
 from pyinfra.facts.files import File
-from pyinfra.operations import apt, server
+from pyinfra.facts.server import Which
+from pyinfra.operations import apt, files, server
 
-if not host.get_fact(File, path="/usr/local/bin/i3lock-color"):
+if not host.get_fact(Which, command="i3lock"):
     apt.packages(
         packages=[
             "autoconf",
@@ -31,10 +32,17 @@ if not host.get_fact(File, path="/usr/local/bin/i3lock-color"):
     )
 
     server.shell(
-        commands=["git clone https://github.com/Raymo111/i3lock-color.git /tmp/i3lock-color"],
+        commands=[
+            "git clone https://github.com/Raymo111/i3lock-color.git /tmp/i3lock-color"
+        ],
     )
 
     server.shell(
         commands=["cd /tmp/i3lock-color && ./install-i3lock-color.sh"],
         _sudo=True,
+    )
+
+    files.directory(
+        path="/tmp/i3lock-color",
+        present=False,
     )

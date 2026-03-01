@@ -7,6 +7,7 @@ BREW_PACKAGES = [
     "awscli",
     "fzf",
     "zoxide",
+    "git-delta",
 ]
 
 
