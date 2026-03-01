@@ -13,12 +13,11 @@ apt.packages(
     present=True,
     update=True,
     cache_time=3600,
+    _sudo=True,
 )
 
 if not host.get_fact(Directory, path=oh_my_zsh_dir):
-    server.shell(
-        "curl -sL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh | bash -"
-    )
+    server.shell(commands=["curl -sL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh | bash -"])
 
 git.repo(
     src="https://github.com/zsh-users/zsh-autosuggestions",
@@ -35,4 +34,4 @@ git.repo(
     dest=f"{home}/.oh-my-zsh/custom/plugins/zsh-fzf-history-search",
 )
 
-server.shell(f"chsh -s /bin/zsh {user}")
+server.shell(commands=[f"chsh -s /bin/zsh {user}"], _sudo=True)

@@ -21,3 +21,7 @@ uv run pyinfra inventory.py workstation.py
 ```
 
 To run a different playbook, replace `workstation.py` with the file you want.
+
+## Future work
+
+- mise conf to install node and python 3.12 globally.
