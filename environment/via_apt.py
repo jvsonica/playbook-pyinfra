@@ -13,6 +13,7 @@ apt.packages(
         "tmux",
         "ripgrep",
         "stow",
+        "fd-find",
         "unzip",
         "htop",
         "sshfs",

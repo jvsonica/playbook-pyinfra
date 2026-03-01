@@ -17,6 +17,7 @@ if not host.get_fact(Which, command="i3lock"):
             "libx11-xcb-dev",
             "libxcb-xkb-dev",
             "libxcb-xinerama0-dev",
+            "libxcb-randr0-dev",
             "libxcb-image0-dev",
             "libxcb-util-dev",
             "libxcb-xrm-dev",
