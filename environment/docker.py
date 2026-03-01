@@ -1,59 +1,46 @@
+from pathlib import Path
+
 from pyinfra import host
-from pyinfra.facts.server import LsbRelease, User
-from pyinfra.operations import apt, files, server
+from pyinfra.facts.server import Which, Users
+from pyinfra.operations import apt, server
 
-lsb = host.get_fact(LsbRelease) or {}
-codename = lsb.get("codename") or lsb.get("release")
+user = Path.home().name
 
-name = "ubuntu"
+if not host.get_fact(Which, command="docker"):
+    server.shell(
+        commands=[
+            "install -m 0755 -d /etc/apt/keyrings",
+            "curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc",
+            "chmod a+r /etc/apt/keyrings/docker.asc",
+        ],
+        _sudo=True,
+    )
 
-apt.packages(
-    packages=["ca-certificates", "curl"],
-    present=True,
-    update=True,
-    cache_time=3600,
-)
+    server.shell(
+        commands=[
+            'echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu $(. /etc/os-release && echo ${UBUNTU_CODENAME:-$(echo $VERSION_CODENAME)}) stable" > /etc/apt/sources.list.d/docker.list',
+        ],
+        _sudo=True,
+    )
 
-files.directory(
-    path="/etc/apt/keyrings",
-    present=True,
-    mode="0755",
-)
+    apt.update(_sudo=True)
 
-files.download(
-    src=f"https://download.docker.com/linux/{name}/gpg",
-    dest="/etc/apt/keyrings/docker.asc",
-    mode="0644",
-)
+    apt.packages(
+        packages=[
+            "docker-ce",
+            "docker-ce-cli",
+            "containerd.io",
+            "docker-buildx-plugin",
+            "docker-compose-plugin",
+        ],
+        present=True,
+        update=True,
+        _sudo=True,
+    )
 
-apt.repo(
-    src=(
-        "deb [arch=amd64 signed-by=/etc/apt/keyrings/docker.asc] "
-        f"https://download.docker.com/linux/{name} {codename} stable"
-    ),
-    present=True,
-)
-
-apt.packages(
-    packages=[
-        "docker-ce",
-        "docker-ce-cli",
-        "containerd.io",
-        "docker-buildx-plugin",
-        "docker-compose-plugin",
-    ],
-    present=True,
-    update=True,
-    cache_time=3600,
-)
-
-server.group(
-    group="docker",
-    present=True,
-)
-
-server.user(
-    user=host.get_fact(User),
-    groups=["docker"],
-    append=True,
-)
+users = host.get_fact(Users)
+if users and user in users:
+    user_groups = users[user].get("groups", [])
+    print(user_groups)
+    if "docker" not in user_groups:
+        server.shell(commands=[f"usermod -aG docker {user}"], _sudo=True)

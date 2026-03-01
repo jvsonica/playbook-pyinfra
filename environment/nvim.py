@@ -17,7 +17,7 @@ if not host.get_fact(File, path="/usr/local/bin/nvim"):
     )
 
     server.shell(
-        [
+        commands=[
             "cd /tmp/neovim && make CMAKE_BUILD_TYPE=RelWithDebInfo",
             "cd /tmp/neovim && make install",
         ]

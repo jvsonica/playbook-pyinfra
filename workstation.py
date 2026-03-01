@@ -1,6 +1,5 @@
-# import environment
-# import applications
+import environment
 import shell
-import desktop
 
-# import fonts
+# import applications
+# import desktop

@@ -14,6 +14,6 @@ files.directory(
     present=True,
 )
 
-server.shell(f"unzip -o /tmp/Hack.zip -d {home}/.fonts")
+server.shell(commands=f"unzip -o /tmp/Hack.zip -d {home}/.fonts")
 
-server.shell("fc-cache -fv")
+server.shell(commands="fc-cache -fv")
