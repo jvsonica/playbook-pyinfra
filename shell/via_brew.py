@@ -8,6 +8,7 @@ BREW_PACKAGES = [
     "fzf",
     "zoxide",
     "git-delta",
+    "xclip"
 ]
 
 

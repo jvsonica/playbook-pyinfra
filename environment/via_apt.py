@@ -17,6 +17,7 @@ apt.packages(
         "unzip",
         "htop",
         "sshfs",
+        "pavucontrol"
     ],
     present=True,
     update=True,

@@ -9,6 +9,8 @@ apt.packages(
         "dmenu",
         "imagemagick",
         "fontconfig",
+        "flameshot",
+        "gsimplecal"
     ],
     present=True,
     update=True,
