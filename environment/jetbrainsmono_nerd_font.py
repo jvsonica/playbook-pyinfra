@@ -6,12 +6,12 @@ from pyinfra.operations import files, server
 
 home = str(Path.home())
 
-font_marker = f"{home}/.fonts/HackNerdFont-Regular.ttf"
+font_marker = f"{home}/.fonts/JetBrainsMonoNerdFont-Regular.ttf"
 
 if not host.get_fact(File, path=font_marker):
     files.download(
-        src="https://github.com/ryanoasis/nerd-fonts/releases/download/v3.2.1/Hack.zip",
-        dest="/tmp/Hack.zip",
+        src="https://github.com/ryanoasis/nerd-fonts/releases/download/v3.2.1/JetBrainsMono.zip",
+        dest="/tmp/JetBrainsMono.zip",
     )
 
     files.directory(
@@ -19,6 +19,6 @@ if not host.get_fact(File, path=font_marker):
         present=True,
     )
 
-    server.shell(commands=f"unzip -o /tmp/Hack.zip -d {home}/.fonts")
+    server.shell(commands=f"unzip -o /tmp/JetBrainsMono.zip -d {home}/.fonts")
 
     server.shell(commands="fc-cache -fv")
