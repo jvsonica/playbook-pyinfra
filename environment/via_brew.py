@@ -2,9 +2,7 @@ from pyinfra import host
 from pyinfra.facts.server import Which
 from pyinfra.operations import server
 
-BREW_PACKAGES = [
-    "mise",
-]
+BREW_PACKAGES = ["mise", "duckdb", "go"]
 
 
 def _is_installed(cmd: str) -> bool:

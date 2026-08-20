@@ -2,14 +2,7 @@ from pyinfra import host
 from pyinfra.facts.server import Which
 from pyinfra.operations import server
 
-BREW_PACKAGES = [
-    "jq",
-    "awscli",
-    "fzf",
-    "zoxide",
-    "git-delta",
-    "xclip"
-]
+BREW_PACKAGES = ["jq", "awscli", "fzf", "zoxide", "git-delta", "xclip", "lazygit"]
 
 
 def _is_installed(cmd: str) -> bool:
